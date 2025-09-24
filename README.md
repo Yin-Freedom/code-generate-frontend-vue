@@ -2,7 +2,9 @@
 
 ## 1. 开发规范
 
-代码格式化：使用 eslint + prettier 语法检查和格式化，使用 vscode 插件在保存时自动生效。
+### 代码格式化
+
+使用 eslint + prettier 做语法检查和格式化，使用 vscode 插件在保存时自动生效。
 
 配置：
 
@@ -14,6 +16,10 @@
    |-- .eslintrc.js
    |-- .prettierrc.js
 2. 安装 vscode 插件
+
+### 组件库
+
+使用 Ant Design Vue 作为组件库。
 
 ## Project setup
 

@@ -21,6 +21,24 @@
 
 使用 Ant Design Vue 作为组件库。
 
+## 安装依赖
+
+- andv
+  pnpm i --save ant-design-vue@4.x
+
+- taiwind
+  pnpm install -D tailwindcss postcss autoprefixer
+
+  手动创建两个配置文件（推荐做法）：tailwind.config.js、postcss.config.js
+
+  添加 /src/assets/css/app.css 文件
+
+  main.ts 引入
+
+  安装插件提供补全 Tailwind CSS IntelliSense，关闭其他插件单独启用该插件好像不行，必须得有 Vue 插件才行。
+
+  问题 1：tailwind4 没法启用 vscode 插件补全和提示，降级到 tailwind3 解决。
+
 ## Project setup
 
 ```

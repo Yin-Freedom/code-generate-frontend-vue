@@ -6,4 +6,7 @@ import router from './router';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
 
+// css
+import './assets/css/app.css';
+
 createApp(App).use(Antd).use(router).mount('#app');

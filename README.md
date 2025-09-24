@@ -39,6 +39,9 @@
 
   问题 1：tailwind4 没法启用 vscode 插件补全和提示，降级到 tailwind3 解决。
 
+- axios
+  pnpm install axios
+
 ## Project setup
 
 ```

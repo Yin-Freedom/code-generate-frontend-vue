@@ -1,0 +1,8 @@
+在@/views/product下生成两个vue文件ProductList、ProductDialog。
+- 技术栈使用vue、antdv
+- ProductList包含新增、编辑、删除、筛选功能，可以分页查询，可以控制每列的显示隐藏
+- ProductDialog在新增时为对话框（Modal）、在编辑时为右边弹出抽屉（Drawer）
+- ProductDialog的内容为表单，表单有Input、Select、InputNumber、Switch、Upload
+- ProductDialog中表单的必填项存在未输入项，则置灰（disabled）不可点
+- ProductDialog点击确定后loading确定按钮，待axios返回后取消置灰
+- UE图在附件目录pictures下

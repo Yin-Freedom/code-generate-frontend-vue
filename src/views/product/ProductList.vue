@@ -119,6 +119,10 @@ interface Column {
   width?: number;
 }
 
+onMounted(() => {
+  fetchData();
+});
+
 // 搜索表单
 const searchForm = reactive({
   name: '',
@@ -236,10 +240,6 @@ const handleDialogSuccess = () => {
   dialogVisible.value = false;
   fetchData();
 };
-
-onMounted(() => {
-  fetchData();
-});
 </script>
 
 <style scoped></style>

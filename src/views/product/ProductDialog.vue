@@ -33,7 +33,7 @@
       @form-valid-change="handleFormValidChange"
     />
     <template #footer>
-      <div class="drawer-footer">
+      <div class="absolute right-0 bottom-0 w-full border-t py-4 px-2 bg-white text-right">
         <a-space>
           <a-button @click="handleCancel">取消</a-button>
           <a-button
@@ -197,15 +197,4 @@ const handleCancel = () => {
 };
 </script>
 
-<style scoped>
-.drawer-footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid #e9e9e9;
-  padding: 10px 16px;
-  background: #fff;
-  text-align: right;
-}
-</style>
+<style scoped></style>

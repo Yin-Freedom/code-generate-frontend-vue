@@ -126,7 +126,7 @@ onMounted(() => {
 // 搜索表单
 const searchForm = reactive({
   name: '',
-  status: undefined,
+  status: undefined
 });
 
 // 表格数据
@@ -137,7 +137,7 @@ const loading = ref(false);
 const pagination = reactive({
   current: 1,
   pageSize: 10,
-  total: 0,
+  total: 0
 });
 
 // 列配置
@@ -147,7 +147,7 @@ const columns = ref<Column[]>([
   { key: 'category', title: '分类', dataIndex: 'category', visible: true },
   { key: 'status', title: '状态', dataIndex: 'status', visible: true, width: 100 },
   { key: 'createTime', title: '创建时间', dataIndex: 'createTime', visible: true, width: 180 },
-  { key: 'action', title: '操作', dataIndex: 'action', visible: true, width: 150 },
+  { key: 'action', title: '操作', dataIndex: 'action', visible: true, width: 150 }
 ]);
 
 // 可见列
@@ -165,7 +165,7 @@ const fetchData = async () => {
     const params = {
       page: pagination.current,
       pageSize: pagination.pageSize,
-      ...searchForm,
+      ...searchForm
     };
     const response = await findByPage(params);
     tableData.value = response.data.list;
@@ -187,7 +187,7 @@ const handleSearch = () => {
 const handleReset = () => {
   Object.assign(searchForm, {
     name: '',
-    status: undefined,
+    status: undefined
   });
   handleSearch();
 };

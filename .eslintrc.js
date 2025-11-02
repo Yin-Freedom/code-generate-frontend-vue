@@ -7,7 +7,7 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    es2021: true,
+    es2021: true
   },
   // Parser configuration for Vue files
   parser: 'vue-eslint-parser',
@@ -15,7 +15,7 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
     ecmaVersion: 2021,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['vue'],
   // Extend configurations from other configs
@@ -24,7 +24,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
     '@vue/typescript/recommended',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended'
   ],
   // Custom rules
   rules: {
@@ -36,7 +36,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     // Disable trailing comma rules
     'comma-dangle': 'off',
-    '@typescript-eslint/comma-dangle': 'off',
+    '@typescript-eslint/comma-dangle': 'off'
   },
   // Files and directories to ignore
   ignorePatterns: [
@@ -45,6 +45,6 @@ module.exports = {
     'public/',
     '*.min.js',
     'webpack.*.js',
-    'webpack.config.js',
-  ],
+    'webpack.config.js'
+  ]
 };

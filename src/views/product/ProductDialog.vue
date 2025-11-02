@@ -78,7 +78,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  record: null,
+  record: null
 });
 
 const emit = defineEmits<Emits>();
@@ -93,7 +93,7 @@ const formData = ref<Product>({
   category: '',
   status: 'active',
   description: '',
-  images: [],
+  images: []
 });
 
 // 表单验证规则
@@ -101,9 +101,9 @@ const rules = {
   name: [{ required: true, message: '请输入产品名称', trigger: 'blur' }],
   price: [
     { required: true, message: '请输入价格', trigger: 'blur' },
-    { type: 'number', min: 0, message: '价格不能小于0', trigger: 'blur' },
+    { type: 'number', min: 0, message: '价格不能小于0', trigger: 'blur' }
   ],
-  category: [{ required: true, message: '请选择分类', trigger: 'change' }],
+  category: [{ required: true, message: '请选择分类', trigger: 'change' }]
 };
 
 // 状态
@@ -113,7 +113,7 @@ const isFormValid = ref(false);
 // 计算属性
 const visible = computed({
   get: () => props.visible,
-  set: (value: boolean) => emit('update:visible', value),
+  set: (value: boolean) => emit('update:visible', value)
 });
 
 const title = computed(() => {
@@ -128,7 +128,7 @@ watch(
       // 使用 Object.assign 而不是展开运算符，避免触发不必要的响应式更新
       formData.value = {
         ...newRecord,
-        images: newRecord.images || [],
+        images: newRecord.images || []
       };
     } else {
       // 重置表单
@@ -138,7 +138,7 @@ watch(
         category: '',
         status: 'active',
         description: '',
-        images: [],
+        images: []
       };
     }
     nextTick(() => {

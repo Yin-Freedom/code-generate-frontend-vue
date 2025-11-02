@@ -18,5 +18,5 @@ module.exports = {
   // Include parentheses around a sole arrow function parameter
   arrowParens: 'avoid',
   // Maintain existing line endings
-  endOfLine: 'auto',
+  endOfLine: 'auto'
 };

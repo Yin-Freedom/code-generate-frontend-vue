@@ -35,7 +35,7 @@ export const userApi = {
   // 获取用户列表
   getUserList: (page = 1, size = 10): Promise<ApiResponse<User[]>> => {
     return request.get('/users', {
-      params: { page, size },
+      params: { page, size }
     });
   },
 
@@ -52,7 +52,7 @@ export const userApi = {
   // 删除用户
   deleteUser: (id: number): Promise<ApiResponse<null>> => {
     return request.delete(`/users/${id}`);
-  },
+  }
 };
 
 // 在 Vue 组件中的使用示例：

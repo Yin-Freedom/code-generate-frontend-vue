@@ -12,9 +12,9 @@ const instance: AxiosInstance = axios.create({
   baseURL: process.env.NODE_ENV ? process.env.VUE_APP_API_BASE_URL || '/api' : 'https://baidu.com/',
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   },
-  withCredentials: true,
+  withCredentials: true
 });
 
 // 请求拦截器

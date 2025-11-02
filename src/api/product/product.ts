@@ -15,7 +15,7 @@ export const deleteByIds = async (params: any) => {
 export const uploadImage = async (formData: any) => {
   return await request.post('/api/code-generate/product/uploadImage', formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+      'Content-Type': 'multipart/form-data'
+    }
   });
 };

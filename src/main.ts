@@ -31,7 +31,7 @@ import {
   MenuItem,
   Checkbox,
   Popconfirm,
-  message,
+  message
 } from 'ant-design-vue';
 
 // 只导入使用的图标

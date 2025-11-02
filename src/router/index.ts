@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: HomeView
   },
   {
     path: '/about',
@@ -13,18 +13,18 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AboutView.vue'),
+    component: () => import('../views/AboutView.vue')
   },
   {
     path: '/product',
     name: 'product',
-    component: () => import('@/views/product/ProductList.vue'),
-  },
+    component: () => import('@/views/product/ProductList.vue')
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 
 export default router;

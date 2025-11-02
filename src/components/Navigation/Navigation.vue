@@ -18,22 +18,22 @@ const current = ref<string[]>(['/']);
 const items = ref<MenuProps['items']>([
   {
     key: '/',
-    label: '主页',
+    label: '主页'
   },
   {
     key: '/about',
     icon: () => h(SettingOutlined),
-    label: '关于',
+    label: '关于'
   },
   {
     key: '/product',
-    label: '产品管理',
-  },
+    label: '产品管理'
+  }
 ]);
 
 function handleClick(e: { key: string }) {
   router.push({
-    path: e.key,
+    path: e.key
   });
 }
 </script>

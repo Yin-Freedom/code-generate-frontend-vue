@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/api/product/user';
 
 export const loginUserStore = defineStore('loginUser', () => {
   const loginUser = ref<any>({
-    userName: '未登录',
+    userName: '未登录'
   });
 
   const fetchLoginUser = async () => {

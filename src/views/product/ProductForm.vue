@@ -120,7 +120,7 @@ const localFormData = reactive<Product>({
   category: '',
   status: 'active',
   description: '',
-  images: [],
+  images: []
 });
 
 // 分类选项
@@ -129,7 +129,7 @@ const categoryOptions = [
   { label: '服装', value: 'clothing' },
   { label: '家居', value: 'home' },
   { label: '图书', value: 'books' },
-  { label: '运动', value: 'sports' },
+  { label: '运动', value: 'sports' }
 ];
 
 // 文件上传
@@ -151,7 +151,7 @@ const initFileList = (images: string[]) => {
     name: `image-${index}`,
     status: 'done' as const,
     url,
-    response: { url },
+    response: { url }
   }));
 };
 
@@ -164,7 +164,7 @@ watch(
 
       Object.assign(localFormData, {
         ...newFormData,
-        images: newFormData.images || [],
+        images: newFormData.images || []
       });
 
       // 同步更新文件列表
@@ -299,7 +299,7 @@ const validate = () => {
 // 暴露方法
 defineExpose({
   resetValidation,
-  validate,
+  validate
 });
 </script>
 

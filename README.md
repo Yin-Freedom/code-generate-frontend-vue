@@ -42,6 +42,26 @@
 - axios
   pnpm install axios
 
+## 项目搭建
+
+使用脚手架搭建 vue 项目
+
+1. 使用 node 版本管理工具 nvm，安装 node LTS（稳定版本）
+2. node -v， 检查版本号
+3. vue-cli 脚手架
+
+文档：https://cli.vuejs.org/#getting-started
+
+```js
+// install
+npm install -g @vue/cli
+
+// create a project
+vue create my-project
+```
+
+
+
 ## Project setup
 
 ```
@@ -69,3 +89,12 @@ pnpm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 全局状态管理
+
+- [pinia](https://pinia.vuejs.org/getting-started.html)
+- [vuex]()
+
+```bash
+pnpm i --save-dev pinia
+```

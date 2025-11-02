@@ -34,6 +34,9 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     // Vue specific rules
     'vue/multi-word-component-names': 'off',
+    // Disable trailing comma rules
+    'comma-dangle': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
   },
   // Files and directories to ignore
   ignorePatterns: [

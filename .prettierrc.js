@@ -13,8 +13,8 @@ module.exports = {
   useTabs: false,
   // Print spaces between brackets in object literals
   bracketSpacing: true,
-  // Print trailing commas in multiline structures where valid in ES5
-  trailingComma: 'es5',
+  // Don't print trailing commas
+  trailingComma: 'none',
   // Include parentheses around a sole arrow function parameter
   arrowParens: 'avoid',
   // Maintain existing line endings

@@ -87,12 +87,13 @@ import { message } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import type { UploadFile, UploadProps } from 'ant-design-vue';
 import { uploadImage } from '@/api/product/product';
+import { categoryOptions } from './constants';
 
 interface Product {
   name: string;
   price: number;
   category: string;
-  status: 'active' | 'inactive';
+  status: 'true' | 'false';
   description: string;
   images: string[];
 }
@@ -118,19 +119,10 @@ const localFormData = reactive<Product>({
   name: '',
   price: 0,
   category: '',
-  status: 'active',
+  status: 'true',
   description: '',
   images: []
 });
-
-// 分类选项
-const categoryOptions = [
-  { label: '电子产品', value: 'electronics' },
-  { label: '服装', value: 'clothing' },
-  { label: '家居', value: 'home' },
-  { label: '图书', value: 'books' },
-  { label: '运动', value: 'sports' }
-];
 
 // 文件上传
 const fileList = ref<UploadFile[]>([]);

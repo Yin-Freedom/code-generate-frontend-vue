@@ -3,36 +3,10 @@ import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
 
-// 按需导入 Ant Design Vue 组件和样式
-import {
-  ConfigProvider,
-  Layout,
-  LayoutHeader,
-  LayoutContent,
-  LayoutFooter,
-  Card,
-  Form,
-  FormItem,
-  Input,
-  InputNumber,
-  Select,
-  SelectOption,
-  Button,
-  Table,
-  Pagination,
-  Modal,
-  Drawer,
-  Switch,
-  Upload,
-  Space,
-  Tag,
-  Dropdown,
-  Menu,
-  MenuItem,
-  Checkbox,
-  Popconfirm,
-  message
-} from 'ant-design-vue';
+// Ant Design Vue Components
+import Antd from 'ant-design-vue';
+import { message } from 'ant-design-vue';
+import 'ant-design-vue/dist/reset.css';
 
 // 只导入使用的图标
 import { DownOutlined, PlusOutlined } from '@ant-design/icons-vue';
@@ -46,33 +20,7 @@ import './assets/css/app.css';
 // 创建应用实例
 const app = createApp(App);
 
-// 按需注册 Ant Design Vue 组件
-app.use(ConfigProvider);
-app.use(Layout);
-app.component('ALayoutHeader', LayoutHeader);
-app.component('ALayoutContent', LayoutContent);
-app.component('ALayoutFooter', LayoutFooter);
-app.use(Card);
-app.use(Form);
-app.component('AFormItem', FormItem);
-app.use(Input);
-app.use(InputNumber);
-app.use(Select);
-app.use(SelectOption);
-app.use(Button);
-app.use(Table);
-app.use(Pagination);
-app.use(Modal);
-app.use(Drawer);
-app.use(Switch);
-app.use(Upload);
-app.use(Space);
-app.use(Tag);
-app.use(Dropdown);
-app.use(Menu);
-app.component('AMenuItem', MenuItem);
-app.use(Checkbox);
-app.use(Popconfirm);
+app.use(Antd);
 
 // 注册图标
 app.component('DownOutlined', DownOutlined);
@@ -104,6 +52,26 @@ app.config.errorHandler = (error, instance, info) => {
     // sendErrorToService(error, info);
   }
 };
+
+// 抑制 ResizeObserver 错误 - 这是一个浏览器良性警告
+const resizeObserverLoopErr =
+  /^ResizeObserver loop (completed with undelivered notifications|limit exceeded)/;
+
+window.addEventListener('error', (e: ErrorEvent) => {
+  if (resizeObserverLoopErr.test(e.message)) {
+    const resizeObserverErrDiv = document.getElementById('webpack-dev-server-client-overlay-div');
+    const resizeObserverErr = document.getElementById('webpack-dev-server-client-overlay');
+    if (resizeObserverErr) {
+      resizeObserverErr.setAttribute('style', 'display: none');
+    }
+    if (resizeObserverErrDiv) {
+      resizeObserverErrDiv.setAttribute('style', 'display: none');
+    }
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+    e.preventDefault();
+  }
+});
 
 // 使用路由
 app.use(router);

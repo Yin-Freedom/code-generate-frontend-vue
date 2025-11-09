@@ -13,8 +13,8 @@
             allow-clear
             style="width: 120px"
           >
-            <a-select-option value="active">启用</a-select-option>
-            <a-select-option value="inactive">禁用</a-select-option>
+            <a-select-option value="true">启用</a-select-option>
+            <a-select-option value="false">禁用</a-select-option>
           </a-select>
         </a-form-item>
         <a-form-item>
@@ -53,9 +53,12 @@
         row-key="id"
       >
         <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'status'">
-            <a-tag :color="record.status === 'active' ? 'green' : 'red'">
-              {{ record.status === 'active' ? '启用' : '禁用' }}
+          <template v-if="column.key === 'category'">
+            {{ getCategoryLabel(record.category) }}
+          </template>
+          <template v-else-if="column.key === 'status'">
+            <a-tag :color="record.status === 'true' ? 'green' : 'red'">
+              {{ record.status === 'true' ? '启用' : '禁用' }}
             </a-tag>
           </template>
           <template v-else-if="column.key === 'action'">
@@ -85,10 +88,10 @@
 
     <!-- 产品对话框 -->
     <ProductDialog
-      v-model:visible="dialogVisible"
-      :type="dialogType"
-      :record="currentRecord"
-      @success="handleDialogSuccess"
+      v-model:open="dialog.open"
+      :type="dialog.type"
+      :record="dialog.record"
+      @success="handleSuccess"
     />
   </div>
 </template>
@@ -99,13 +102,14 @@ import { message } from 'ant-design-vue';
 import { DownOutlined } from '@ant-design/icons-vue';
 import ProductDialog from './ProductDialog.vue';
 import { findByPage, deleteByIds } from '@/api/product/product';
+import { categoryOptions } from './constants';
 
 interface Product {
   id: number;
   name: string;
   price: number;
   category: string;
-  status: 'active' | 'inactive';
+  status: 'true' | 'false';
   createTime: string;
   description: string;
   images: string[];
@@ -154,9 +158,17 @@ const columns = ref<Column[]>([
 const visibleColumns = computed(() => columns.value.filter(col => col.visible));
 
 // 对话框
-const dialogVisible = ref(false);
-const dialogType = ref<'add' | 'edit'>('add');
-const currentRecord = ref<Product | null>(null);
+const dialog = reactive({
+  open: false,
+  type: 'add' as 'add' | 'edit',
+  record: null as Product | null
+});
+
+// 根据分类value获取label
+const getCategoryLabel = (value: string) => {
+  const option = categoryOptions.find(item => item.value === value);
+  return option ? option.label : value;
+};
 
 // 获取列表数据
 const fetchData = async () => {
@@ -194,26 +206,32 @@ const handleReset = () => {
 
 // 新增
 const handleAdd = () => {
-  dialogType.value = 'add';
-  currentRecord.value = null;
-  dialogVisible.value = true;
+  dialog.open = true;
+  dialog.type = 'add';
+  dialog.record = null;
 };
 
 // 编辑
 const handleEdit = (record: Product) => {
-  dialogType.value = 'edit';
-  currentRecord.value = record;
-  dialogVisible.value = true;
+  dialog.open = true;
+  dialog.type = 'edit';
+  dialog.record = record;
 };
 
 // 删除
 const handleDelete = async (id: number) => {
   try {
-    await deleteByIds([id]);
+    await deleteByIds({ ids: [id] });
     message.success('删除成功');
-    fetchData();
-  } catch (error) {
-    message.error('删除失败');
+    // 删除后如果当前页没有数据了，返回上一页
+    if (tableData.value.length === 1 && pagination.current > 1) {
+      pagination.current = pagination.current - 1;
+    }
+    await fetchData();
+  } catch (error: any) {
+    console.error('删除失败:', error);
+    const errorMessage = error?.response?.data?.message || '删除失败';
+    message.error(errorMessage);
   }
 };
 
@@ -236,8 +254,8 @@ const handleColumnVisibility = () => {
 };
 
 // 对话框成功回调
-const handleDialogSuccess = () => {
-  dialogVisible.value = false;
+const handleSuccess = () => {
+  dialog.open = false;
   fetchData();
 };
 </script>

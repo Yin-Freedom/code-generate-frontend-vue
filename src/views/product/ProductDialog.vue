@@ -2,10 +2,11 @@
   <!-- 新增时使用Modal -->
   <a-modal
     v-if="type === 'add'"
-    v-model:visible="visible"
+    v-model:open="open"
     :title="title"
     width="600px"
     :confirm-loading="confirmLoading"
+    :ok-button-props="{ disabled: !canSave }"
     @ok="handleSubmit"
     @cancel="handleCancel"
   >
@@ -20,7 +21,7 @@
   <!-- 编辑时使用Drawer -->
   <a-drawer
     v-else
-    v-model:visible="visible"
+    v-model:open="open"
     :title="title"
     width="600px"
     placement="right"
@@ -39,7 +40,7 @@
           <a-button
             type="primary"
             :loading="confirmLoading"
-            :disabled="!isFormValid"
+            :disabled="!canSave"
             @click="handleSubmit"
           >
             确定
@@ -61,19 +62,19 @@ interface Product {
   name: string;
   price: number;
   category: string;
-  status: 'active' | 'inactive';
+  status: 'true' | 'false';
   description: string;
   images: string[];
 }
 
 interface Props {
-  visible: boolean;
+  open: boolean;
   type: 'add' | 'edit';
   record?: Product | null;
 }
 
 interface Emits {
-  (e: 'update:visible', value: boolean): void;
+  (e: 'update:open', value: boolean): void;
   (e: 'success'): void;
 }
 
@@ -83,6 +84,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>();
 
+const saving = ref(false);
+
 // 表单引用
 const formRef = ref();
 
@@ -91,7 +94,7 @@ const formData = ref<Product>({
   name: '',
   price: 0,
   category: '',
-  status: 'active',
+  status: 'true',
   description: '',
   images: []
 });
@@ -111,16 +114,29 @@ const confirmLoading = ref(false);
 const isFormValid = ref(false);
 
 // 计算属性
-const visible = computed({
-  get: () => props.visible,
-  set: (value: boolean) => emit('update:visible', value)
+const open = computed({
+  get: () => props.open,
+  set: (value: boolean) => emit('update:open', value)
 });
 
 const title = computed(() => {
   return props.type === 'add' ? '新增产品' : '编辑产品';
 });
 
-// 监听记录变化，初始化表单 - 移除 deep: true 避免深度监听导致循环
+// 检查必填字段是否有值
+const canSave = computed(() => {
+  return !!(
+    formData.value.name &&
+    formData.value.name.trim() &&
+    formData.value.price !== null &&
+    formData.value.price !== undefined &&
+    formData.value.price >= 0 &&
+    formData.value.category &&
+    formData.value.category.trim()
+  );
+});
+
+// 监听记录变化
 watch(
   () => props.record,
   newRecord => {
@@ -136,7 +152,7 @@ watch(
         name: '',
         price: 0,
         category: '',
-        status: 'active',
+        status: 'true',
         description: '',
         images: []
       };
@@ -148,11 +164,11 @@ watch(
   { immediate: true }
 );
 
-// 监听 visible 变化，重置表单验证状态
+// 监听 open 变化，重置表单验证状态
 watch(
-  () => props.visible,
-  newVisible => {
-    if (!newVisible) {
+  () => props.open,
+  newOpen => {
+    if (!newOpen) {
       isFormValid.value = false;
     }
   }
@@ -165,6 +181,7 @@ const handleFormValidChange = (valid: boolean) => {
 
 // 提交表单
 const handleSubmit = async () => {
+  saving.value = true;
   try {
     await formRef.value?.validate();
     confirmLoading.value = true;
@@ -180,6 +197,7 @@ const handleSubmit = async () => {
     }
 
     emit('success');
+    reset();
   } catch (error: unknown) {
     if (typeof error === 'object' && error !== null && 'errorFields' in error) {
       message.error('请检查表单填写');
@@ -188,12 +206,19 @@ const handleSubmit = async () => {
     }
   } finally {
     confirmLoading.value = false;
+    saving.value = false;
   }
 };
 
 // 取消
 const handleCancel = () => {
-  visible.value = false;
+  open.value = false;
+  saving.value = false;
+  reset();
+};
+
+const reset = () => {
+  formRef.value?.$refs.formRef.resetFields();
 };
 </script>
 

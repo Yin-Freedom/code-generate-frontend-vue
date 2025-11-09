@@ -9,7 +9,9 @@ interface ApiResponse<T = unknown> {
 
 // 创建axios实例
 const instance: AxiosInstance = axios.create({
-  baseURL: process.env.NODE_ENV ? process.env.VUE_APP_API_BASE_URL || '/api' : 'https://baidu.com/',
+  baseURL: process.env.NODE_ENV
+    ? process.env.VUE_APP_API_BASE_URL || '/api/code-generate'
+    : 'https://baidu.com/',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -27,10 +29,10 @@ instance.interceptors.request.use(
     }
 
     // 添加请求日志
-    console.log(
-      `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
-      config.params || config.data
-    );
+    // console.log(
+    //   `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
+    //   config.params || config.data
+    // );
 
     return config;
   },
@@ -46,7 +48,7 @@ instance.interceptors.response.use(
     const { data } = response;
 
     // 添加响应日志
-    console.log(`[API Response] ${response.config.url}`, data);
+    // console.log(`[API Response] ${response.config.url}`, data);
 
     // 检查业务状态码
     if (data.code !== undefined && data.code !== 200) {

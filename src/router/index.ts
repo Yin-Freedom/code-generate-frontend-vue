@@ -13,7 +13,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'about',
     meta: {
-      description: '关于'
+      description: '关于',
+      icon: 'setting'
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -27,6 +28,14 @@ const routes: Array<RouteRecordRaw> = [
       description: '产品管理'
     },
     component: () => import('@/views/product/ProductList.vue')
+  },
+  {
+    path: '/sqlToJava',
+    name: 'sqlToJava',
+    meta: {
+      description: 'Java实体生成'
+    },
+    component: () => import('@/views/codeGenerate/SqlToJava.vue')
   }
 ];
 

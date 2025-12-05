@@ -36,6 +36,22 @@ const routes: Array<RouteRecordRaw> = [
       description: 'Java实体生成'
     },
     component: () => import('@/views/codeGenerate/SqlToJava.vue')
+  },
+  {
+    path: '/template',
+    name: 'template',
+    meta: {
+      description: '字符串模板'
+    },
+    component: () => import('@/views/template/TemplateTable.vue')
+  },
+  {
+    path: '/sqlToCode',
+    name: 'sqlToCode',
+    meta: {
+      description: '根据sql生成前后端代码'
+    },
+    component: () => import('@/views/codeGenerate/SqlToCode.vue')
   }
 ];
 

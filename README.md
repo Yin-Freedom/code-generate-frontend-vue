@@ -1,5 +1,13 @@
 # code-generate-frontend-vue
 
+## 0. 技术栈
+框架：vue@3（组合式 API）、vue-router@4（路由控制）、pinia（在 main.ts 中创建全局 store）。
+UI：ant-design-vue@4.2.6、自定义样式配合 tailwindcss@3 与 postcss/autoprefixer。
+数据通信：axios 封装在 src/api；全局 message 由 Ant Design Vue 注册。
+语言与构建：typescript@~4.5.5、@vue/cli-service@5，脚手架依旧沿用 Vue CLI（serve/build/lint 等 npm 脚本）。
+质量与格式：eslint@8 + eslint-plugin-vue/@typescript-eslint + prettier@2（通过 eslint-config-prettier、eslint-plugin-prettier 协同）。
+其它：core-js polyfill；ant-design/icons-vue 精选导入；项目配置文件如 .browserslistrc、tailwind.config.js、.prettierrc.js 提供兼容与编码规范。
+
 ## 1. 开发规范
 
 ### 代码格式化
@@ -9,19 +17,22 @@
 配置：
 
 1. 配置文件
+```bash
    |-- .vscode
    | |-- extensions.json
    | |-- settings.json
    |--
    |-- .eslintrc.js
    |-- .prettierrc.js
+```
+
 2. 安装 vscode 插件
 
 ### 组件库
 
 使用 Ant Design Vue 作为组件库。
 
-## 安装依赖
+## 2. 安装依赖
 
 - andv
   pnpm i --save ant-design-vue@4.x
@@ -42,7 +53,7 @@
 - axios
   pnpm install axios
 
-## 项目搭建
+## 3. 项目搭建
 
 使用脚手架搭建 vue 项目
 
@@ -62,31 +73,31 @@ vue create my-project
 
 
 
-## Project setup
+### Project setup
 
 ```
 pnpm install
 ```
 
-### Compiles and hot-reloads for development
+- Compiles and hot-reloads for development
 
 ```
 pnpm run serve
 ```
 
-### Compiles and minifies for production
+- Compiles and minifies for production
 
 ```
 pnpm run build
 ```
 
-### Lints and fixes files
+- Lints and fixes files
 
 ```
 pnpm run lint
 ```
 
-### Customize configuration
+- Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
@@ -98,3 +109,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```bash
 pnpm i --save-dev pinia
 ```
+
+## 添加模块
+
+1. 添加路由 `@/src/router/index.ts`
+2. 添加api `@/src/api/`
+3. 添加组件 `@/src/views/`

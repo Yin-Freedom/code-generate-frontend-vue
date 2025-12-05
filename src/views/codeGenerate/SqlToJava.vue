@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen flex flex-col bg-slate-50 text-slate-800 font-sans">
+  <div class="bg-slate-50 text-slate-800 font-sans">
     <!-- Header -->
-    <header class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
       <div class="flex items-center gap-3">
         <h1 class="text-lg font-semibold tracking-wide">SQL Schema Parser</h1>
         <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">
@@ -12,10 +12,10 @@
         <span>Support: MySQL / PostgreSQL / Oracle</span>
         <span>User: {{ currentUser }}</span>
       </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-1 flex gap-4 p-4 overflow-hidden">
+    <div class="flex-1 flex gap-4 p-4 overflow-hidden" style="height: calc(100vh - 225px)">
       <!-- Left Panel: Input -->
       <div
         class="flex-1 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
@@ -44,7 +44,13 @@
           class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex justify-between items-center"
         >
           <span class="font-medium text-slate-600 text-sm">Output JSON</span>
-          <a-button type="text" size="small" :disabled="!outputResult" @click="copyToClipboard">
+          <a-button
+            style="height: 20px"
+            type="text"
+            size="small"
+            :disabled="!outputResult"
+            @click="copyToClipboard"
+          >
             Copy JSON
           </a-button>
         </div>
@@ -58,7 +64,7 @@
           />
         </div>
       </div>
-    </main>
+    </div>
   </div>
 </template>
 

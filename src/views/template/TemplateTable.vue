@@ -43,7 +43,15 @@
             <a-card class="template-card" hoverable @click="handleView(item)">
               <template #cover>
                 <div class="card-cover">
-                  <img v-if="item.coverUrl" :src="item.coverUrl" alt="模板封面" />
+                  <a-image
+                    v-if="item.coverUrl"
+                    :src="item.coverUrl"
+                    :alt="`${item.name}-cover`"
+                    :preview="false"
+                    class="cover-image"
+                    fit="contain"
+                    fallback="https://via.placeholder.com/320x180?text=No+Image"
+                  />
                   <div v-else class="cover-placeholder">无封面</div>
                 </div>
               </template>
@@ -299,18 +307,19 @@ onMounted(() => {
 }
 
 .card-cover {
-  height: 160px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f5f5f5;
   overflow: hidden;
+  padding: 12px;
 }
 
-.card-cover img {
+.cover-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .cover-placeholder {

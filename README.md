@@ -57,7 +57,7 @@ UI：ant-design-vue@4.2.6、自定义样式配合 tailwindcss@3 与 postcss/auto
 
 使用脚手架搭建 vue 项目
 
-1. 使用 node 版本管理工具 nvm，安装 node LTS（稳定版本）
+1. 使用 node 版本管理工具 nvm，安装 node LTS（稳定版本），20.15.0
 2. node -v， 检查版本号
 3. vue-cli 脚手架
 

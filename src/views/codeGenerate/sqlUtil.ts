@@ -1,22 +1,6 @@
-export interface FieldMetadata {
-  name: string;
-  entityFieldName: string;
-  javaType: string;
-  dbType: string;
-  length: number | null;
-  precision: number | null;
-  scale: number | null;
-  comment: string;
-}
+import { Table, JavaEntityField } from '@/types/codeGenerate/entity';
 
-export interface ParseResult {
-  tableName?: string;
-  dialect?: string;
-  fields?: FieldMetadata[];
-  error?: string;
-}
-
-export const parseSqlToFieldMetadata = (sql: string): ParseResult => {
+export const parseSqlToFieldMetadata = (sql: string): Table => {
   if (!sql || typeof sql !== 'string') {
     return {};
   }
@@ -35,7 +19,7 @@ export const parseSqlToFieldMetadata = (sql: string): ParseResult => {
   const { tableName, body } = createTableMatch;
 
   const columnsRaw = splitColumns(body);
-  const fields: FieldMetadata[] = [];
+  const fields: JavaEntityField[] = [];
 
   columnsRaw.forEach(colDef => {
     if (!colDef) {
@@ -89,7 +73,7 @@ const inferDialect = (sql: string): string => {
   return 'MYSQL';
 };
 
-const parseColumnDefinition = (def: string, dialect: string): FieldMetadata | null => {
+const parseColumnDefinition = (def: string, dialect: string): JavaEntityField | null => {
   const nameMatch = def.match(/^["`[]?(\w+)["`\]]?\s+(.*)$/);
   if (!nameMatch) {
     return null;
@@ -136,14 +120,14 @@ const parseColumnDefinition = (def: string, dialect: string): FieldMetadata | nu
   }
 
   return {
-    name,
-    entityFieldName: toCamelCase(name),
-    javaType,
-    dbType,
+    dbFieldName: name,
+    fieldName: toCamelCase(name),
+    fieldType: javaType,
     length,
     precision,
     scale,
-    comment
+    comment,
+    dbType
   };
 };
 
@@ -347,7 +331,7 @@ const isConstraintDefinition = (upperDef: string): boolean =>
 const toCamelCase = (str: string): string =>
   str.toLowerCase().replace(/_(\w)/g, (_all, letter: string) => letter.toUpperCase());
 
-const applyExternalComments = (cleanSql: string, fields: FieldMetadata[]): void => {
+const applyExternalComments = (cleanSql: string, fields: JavaEntityField[]): void => {
   const externalCommentRegex =
     /COMMENT\s+ON\s+COLUMN\s+(?:["`[]?\w+["`\]]?\.)*["`[]?(\w+)["`\]]?\s+IS\s+['"]([^'"]*)['"]/gi;
   let match: RegExpExecArray | null;
@@ -355,7 +339,7 @@ const applyExternalComments = (cleanSql: string, fields: FieldMetadata[]): void 
     const colName = match[1];
     const commentText = match[2];
     const field = fields.find(
-      f => f.name === colName || f.name.toLowerCase() === colName.toLowerCase()
+      f => f.dbFieldName === colName || f.dbFieldName.toLowerCase() === colName.toLowerCase()
     );
     if (field) {
       field.comment = commentText;
